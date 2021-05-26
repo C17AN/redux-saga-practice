@@ -1,4 +1,4 @@
-import { call, put } from "redux-saga";
+import { all, call, put, takeEvery } from "redux-saga/effects";
 import { getMemberList } from "../utils/libs/api/getMemberList";
 
 const loadSuccess = (data) => ({
@@ -13,7 +13,7 @@ const loadFail = (error) => ({
   error,
 });
 
-export function* fetchMemberList() {
+export function* fetchMemberSaga() {
   try {
     const result = yield call(getMemberList);
     yield put(loadSuccess(result));
@@ -23,7 +23,7 @@ export function* fetchMemberList() {
 }
 
 export function* requestSaga() {
-  yield takeEvery("REQUEST_FETCH", fetchMemberList);
+  yield takeEvery("REQUEST_FETCH", fetchMemberSaga);
 }
 
 function* rootSaga() {

@@ -6,14 +6,13 @@ const initialState = {
   error: "",
 };
 
-export const memberReducer = async (state = initialState, action) => {
+export const memberReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SUCCESS_FETCH":
-      const data = getMemberList();
-      return { ...state, loading: action.loading, memberList: data };
+      return { ...state, loading: action.loading, memberList: action.payload };
     case "FAIL_FETCH":
       return { ...state, loading: false, error: action.error };
     default:
-      break;
+      return state;
   }
 };
